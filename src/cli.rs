@@ -1,14 +1,13 @@
+use crate::unit::Unit;
 use clap::Parser;
 
 #[derive(Parser, Debug)]
-#[command(
-    name = "wthr",
-    about = "A simple weather app"
-)]
+#[command(name = "wthr", about = "Minimal weather CLI using Open-Meteo API")]
 pub struct CliArgs {
-    city: String,
-    #[arg(short, long, default_value_t = Unit::Metric)]
-    unit: Unit,
+    /// City to retrieve information for
+    pub city: String,
 
+    /// Unit for temperature
+    #[arg(short, long, value_enum, default_value_t = Unit::Metric)]
+    pub unit: Unit,
 }
-
