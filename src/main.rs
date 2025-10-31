@@ -35,7 +35,8 @@ async fn main() {
         }
     };
 
-    let weather = match fetch_weather(&client, lat, lon, args.unit).await {
+    let unit = args.unit();
+    let weather = match fetch_weather(&client, lat, lon, unit).await {
         Ok(weather) => weather,
         Err(e) => {
             eprintln!("Error fetching weather data: {}", e);
@@ -47,8 +48,8 @@ async fn main() {
         "{}. temp {:.1}{}, wind {:.1} {}",
         weather.icon,
         weather.temperature,
-        args.unit.temp_unit(),
-        args.unit.wind_speed(weather.windspeed),
-        args.unit.wind_unit()
+        unit.temp_unit(),
+        unit.wind_speed(weather.windspeed),
+        unit.wind_unit()
     );
 }

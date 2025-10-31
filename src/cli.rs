@@ -7,7 +7,17 @@ pub struct CliArgs {
     /// City to retrieve information for (optional - will use geolocation if not provided)
     pub city: Option<String>,
 
-    /// Unit for temperature
-    #[arg(short, long, value_enum, default_value_t = Unit::Metric)]
-    pub unit: Unit,
+    /// Output in imperial units (default: metric)
+    #[arg(short = 'i', long)]
+    pub imperial: bool,
+}
+
+impl CliArgs {
+    pub fn unit(&self) -> Unit {
+        if self.imperial {
+            Unit::Imperial
+        } else {
+            Unit::Metric
+        }
+    }
 }
