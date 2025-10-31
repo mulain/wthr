@@ -34,3 +34,23 @@ pub async fn get_coordinates(client: &Client, city: &str) -> Result<(f64, f64), 
 
     Ok((coords.latitude, coords.longitude))
 }
+
+#[derive(Deserialize)]
+struct IpApiResponse {
+    lat: f64,
+    lon: f64,
+}
+
+pub async fn get_coordinates_from_ip(client: &Client) -> Result<(f64, f64), anyhow::Error> {
+    let url = "http://ip-api.com/json/?fields=lat,lon";
+
+    let response: IpApiResponse = client
+        .get(url)
+        .send()
+        .await?
+        .error_for_status()?
+        .json()
+        .await?;
+
+    Ok((response.lat, response.lon))
+}
