@@ -1,6 +1,6 @@
+use anyhow::anyhow;
 use reqwest::Client;
 use serde::Deserialize;
-use anyhow::anyhow;
 
 #[derive(Deserialize)]
 struct GeoApiResponse {

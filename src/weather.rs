@@ -29,7 +29,7 @@ pub async fn fetch_weather(
     // anonymous struct is not allowed by compiler, I don't yet understand why
     #[derive(Deserialize)]
     struct ApiResponse {
-        current_weather: CurrentWeather
+        current_weather: CurrentWeather,
     }
 
     let mut response = client

@@ -1,13 +1,13 @@
 mod cli;
-mod unit;
 mod coords;
+mod unit;
 mod weather;
 
 use clap::Parser;
 use cli::CliArgs;
+use coords::{get_coordinates, get_coordinates_from_ip};
 use reqwest::Client;
 use weather::fetch_weather;
-use coords::{get_coordinates, get_coordinates_from_ip};
 
 #[tokio::main]
 async fn main() {
@@ -25,7 +25,10 @@ async fn main() {
     } else {
         match get_coordinates_from_ip(&client).await {
             Ok(coords) => {
-                println!("Using geolocation based on your IP address: {}°, {}°", coords.0, coords.1);
+                println!(
+                    "Using geolocation based on your IP address: {}°, {}°",
+                    coords.0, coords.1
+                );
                 coords
             }
             Err(e) => {
